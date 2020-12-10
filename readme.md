@@ -45,8 +45,9 @@ run:
 streamlit run streamlit_app.py
 ```
 The app allows to load a config file and an image, to adjust the preprocessing steps
-(cropping, adding a rectangle, rotating, Gaussian blurring), andto set the output constraints.
-For the configured settings, a live detection is performed.
+(cropping, adding a rectangle, rotating, Gaussian blurring), and to set the output constraints.
+For the configured settings, a live detection is performed. You can load images
+from the directory *pics/*.
 
 
 

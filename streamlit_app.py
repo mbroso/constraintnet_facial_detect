@@ -33,7 +33,7 @@ with dest.open('r') as f:
 
 
 st.write("""
-        # Facial Landmark Prediction with ConstraintNet
+        # Facial Landmark Detection with ConstraintNet
         """)
 
 ################################
@@ -45,7 +45,7 @@ st.write("""
 #        """)
 
 
-def file_selector_config(folder_path=Path('./experiments/')):
+def file_selector_config(widget_values, folder_path=Path('./experiments/')):
     filenames = [f for f in folder_path.glob('**/config_test*.yaml') if not
         'sector_of_a_circle' in str(f)]
     index = 0
@@ -53,8 +53,7 @@ def file_selector_config(folder_path=Path('./experiments/')):
         if Path(widget_values['file_config']) == filename:
             index = i
             break
-    selected_filename = st.selectbox('Select config file:', filenames) #, index=index)
-    widget_values['file_config'] = str(selected_filename)
+    selected_filename = st.selectbox('Select config file:', filenames, index=index)
     return selected_filename
 
 
@@ -71,7 +70,7 @@ def dict2opts(opts_dict):
 opts = 0
 with st.beta_expander('0 Load Config', expanded=True):
     file_config = Path(widget_values['file_config'])
-    file_config = file_selector_config()
+    file_config = file_selector_config(widget_values)
     widget_values['file_config'] = str(file_config)
 
     opts_dict = OptManager.yaml2dict(file_config)
@@ -437,12 +436,12 @@ if ("exp_1" in str(file_config) and "bb" in str(file_config)):
 #Apply ConstraintNet############
 ################################
 #st.write("""
-#        ## Prediction
+#        ## Detection
 #        """)
-pred_name = '6 Prediction'
+pred_name = '6 Detection'
 if ("exp_1" in str(file_config) and "bb" in str(file_config)) or ("triangle" in
         str(file_config)):
-    pred_name = '7 Prediction'
+    pred_name = '7 Detection'
 
 with st.beta_expander(pred_name, expanded=True):
     #load model from opts

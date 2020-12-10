@@ -123,7 +123,7 @@ attributes in the wild. In Proceedings of the IEEE International Conference on
 Computer Vision. 2015
 
 [2] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun. Deep Residual Learning
-for Image Recognition. arxiv: https://arxiv.org/pdf/1512.03385.pdf
+for Image Recognition. Proceedings of the IEEE Computer Society Conference on Computer Vision and Pattern Recognition. arxiv: https://arxiv.org/pdf/1512.03385.pdf
 
 [3] Steven Diamond and Stephen Boyd. CVXPY: A Python-embedded modeling language for convex optimization. Journal of Machine Learning Research. 2016
 

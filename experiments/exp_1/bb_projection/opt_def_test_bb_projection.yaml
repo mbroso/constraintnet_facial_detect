@@ -1,0 +1,439 @@
+options:
+  opts_celeba:
+    dataset_module:
+      args:
+      - --dataset_module
+      kwargs:
+        default: celeba_dataset
+        help: Select dataset module by name of file containing the dataset class without
+          .py extension. File must exist in data directory.
+        type: &id002 !!python/name:builtins.str ''
+    face_bb_rand_padding_max:
+      args:
+      - --face_bb_rand_padding_max
+      kwargs:
+        default: 60
+        help: Specify the maximal padding for the face bounding box. Individual values
+          for x and y direction possible.
+        nargs: +
+        type: &id001 !!python/name:builtins.int ''
+    face_bb_rand_padding_min:
+      args:
+      - --face_bb_rand_padding_min
+      kwargs:
+        default: 20
+        help: Specify the minimal padding for the face bounding box. Individual values
+          for x and y direction possible.
+        nargs: +
+        type: *id001
+    imgs_dir:
+      args:
+      - --imgs_dir
+      kwargs:
+        default: ./
+        help: Specify the path to the images of the dataset.
+        type: *id002
+    lm_ordering_lm_order:
+      args:
+      - --lm_ordering_lm_order
+      kwargs:
+        default:
+        - nose_x
+        - nose_y
+        help: Specify the order of landmark coordinates for generating the target
+          y.
+        nargs: +
+        type: *id002
+    lms_file:
+      args:
+      - --lms_file
+      kwargs:
+        default: ./
+        help: Specify the path to the txt file containing the landmarks.
+        type: *id002
+    normalize_mean:
+      args:
+      - --normalize_mean
+      kwargs:
+        default:
+        - 0.485
+        - 0.456
+        - 0.406
+        help: Specify the mean value for each channel. Normalization is computed according
+          to input[channel] = (input[channel] - mean[channel]) / std[channel]. Default
+          values are for using pretrained torch models.
+        nargs: +
+        type: &id003 !!python/name:builtins.float ''
+    normalize_std:
+      args:
+      - --normalize_std
+      kwargs:
+        default:
+        - 0.229
+        - 0.224
+        - 0.225
+        help: Specify the standard deviations for each channel. Normalization is computed
+          according to input[channel] = (input[channel] - mean[channel]) / std[channel].
+          Default values are for using pretrained torch models.
+        nargs: +
+        type: *id003
+    opts2constr_para_generator:
+      args:
+      - --opts2constr_para_generator
+      kwargs:
+        default: opts2face_bb_rand
+        help: Specify the wrapper function for the functor which creates constraint
+          parameters.
+        type: *id002
+    opts2dataset:
+      args:
+      - --opts2dataset
+      kwargs:
+        default: opts2celeba_dataset
+        help: Specify dataset wrapper function which should be used to instantiate
+          the dataset class (subclass of torch.utils.data.Dataset). Dataset wrapper
+          function must exist in specified dataset module.
+        type: *id002
+    opts2y_generator:
+      args:
+      - --opts2y_generator
+      kwargs:
+        default: opts2lm_ordering
+        help: Specify the wrapper function for the functor which generates y by selecting
+          landmark coordinates.
+        type: *id002
+    preprocess:
+      args:
+      - --preprocess
+      kwargs:
+        default: []
+        help: Specify the list of preprocessing steps.
+        nargs: '*'
+        type: *id002
+    preprocess_lm_keys:
+      args:
+      - --preprocess_lm_keys
+      kwargs:
+        default: []
+        help: Specify a list of landmark keys that should be in the output sample.
+          When no landmarks are specified all landmarks are considered.
+        nargs: '*'
+        type: *id002
+    randcovercrop_lms_covered:
+      args:
+      - --randcovercrop_lms_covered
+      kwargs:
+        default:
+        - nose
+        help: Specify a list of landmark keys that should be covered by random cover
+          crop.
+        nargs: +
+        type: *id002
+    randcovercrop_no_rand:
+      args:
+      - --randcovercrop_no_rand
+      kwargs:
+        action: store_true
+        help: Flag for no random sampling of crop position.
+    randcovercrop_output_size:
+      args:
+      - --randcovercrop_output_size
+      kwargs:
+        default:
+        - 100
+        help: Specify image size after random cover crop.
+        nargs: +
+        type: *id001
+    randcovercrop_padding:
+      args:
+      - --randcovercrop_padding
+      kwargs:
+        default:
+        - 0.0
+        help: Specify the padding as fraction w.r.t. image edge. If one number is
+          specified same padding ratio is used for x and y dimension. With two numbers
+          padding rates for both dimensions can be specified separately. Numbers must
+          be between 0 and 1.
+        nargs: +
+        type: *id003
+    randhorflip_p:
+      args:
+      - --randhorflip_p
+      kwargs:
+        default: 0.0
+        help: Specify the probability for horizontal flip.
+        type: *id003
+    rescale_output_size:
+      args:
+      - --rescale_output_size
+      kwargs:
+        default:
+        - 100
+        help: Specify image size after rescaling.
+        nargs: +
+        type: *id001
+    rotate_y:
+      args:
+      - --rotate_y
+      kwargs:
+        default:
+        - 0.0
+        help: Specify a list with 4 entries [r_11, r_12, r_21, r_22] which represents
+          a 2x2 matrix. When it is specified the roation matrix is applied on y after
+          y_generator.
+        nargs: +
+        type: *id003
+  opts_constraintnet:
+    block:
+      args:
+      - --block
+      kwargs:
+        default: bottleneck
+        help: Specifiy the block type. Either bottleneck or basicblock.
+        type: *id002
+    block_structure:
+      args:
+      - --block_structure
+      kwargs:
+        default:
+        - 3
+        - 4
+        - 6
+        - 3
+        help: Specify 4 integers to select the number of layers for each of the 4
+          blocks of resnet.
+        nargs: 4
+        type: *id001
+    c_constr_para_repr:
+      args:
+      - --c_constr_para_repr
+      kwargs:
+        default: 4
+        help: Specify the number of channels for the constraint parameter representation.
+        type: *id001
+    const_feat_planes_h:
+      args:
+      - --const_feat_planes_h
+      kwargs:
+        default: '28'
+        help: Specify the height of the generated constraint parameter representation
+          tensor.
+        type: *id001
+    const_feat_planes_n_channels:
+      args:
+      - --const_feat_planes_n_channels
+      kwargs:
+        default: '4'
+        help: Specify the number of channels of the generated constraint parameter
+          representation tensor.
+        type: *id001
+    const_feat_planes_norm_factor:
+      args:
+      - --const_feat_planes_norm_factor
+      kwargs:
+        default: 0.01
+        help: Specify one or several rescaling factors for the channels of the constraint
+          parameter representation tensor.
+        nargs: +
+        type: *id003
+    const_feat_planes_repeat_channels:
+      args:
+      - --const_feat_planes_repeat_channels
+      kwargs:
+        default: '1'
+        help: Specify the number of channels in the generated constraint parameter
+          representation tensor for one constraint parameter.
+        type: *id001
+    const_feat_planes_w:
+      args:
+      - --const_feat_planes_w
+      kwargs:
+        default: '28'
+        help: Specify the width of the generated constraint parameter representation
+          tensor.
+        type: *id001
+    constr_module:
+      args:
+      - --constr_module
+      kwargs:
+        default: polytope_constraints
+        help: Specify the module with functionality for modeling constraints. (e.g.
+          constraintnet)
+        type: *id002
+    model_module:
+      args:
+      - --model_module
+      kwargs:
+        default: constraintnet
+        help: Select module with neural network model. (e.g. constraintnet or resnet).
+        type: *id002
+    opts2constr_guard_layer:
+      args:
+      - --constr_guard_layer
+      kwargs:
+        default: convex_polytopes
+        help: This PyTorch nn.Module implements the constraint guard layer.
+        type: *id002
+    opts2constr_para_repr:
+      args:
+      - --opts2constr_para_repr
+      kwargs:
+        default: opts2const_feat_planes
+        help: Specify a transformation functor which computes the constraint parameter
+          representation tensor from the constraint parameter.
+        type: *id002
+    opts2constr_para_trf:
+      args:
+      - --opts2constr_para_trf
+      kwargs:
+        default: opts2v_polys_bb
+        help: Specify a transformation functor which transforms the constraint parameter
+          in an appropriate format for the constraint guard layer.
+        type: *id002
+    opts2model:
+      args:
+      - --opts2model
+      kwargs:
+        default: opts2constraintnet
+        help: Specified function instantiates model (e.g. opts2constraintnet).
+        type: *id002
+    polys_convex_polys_v_dim:
+      args:
+      - --polys_convex_polys_v_dim
+      kwargs:
+        default:
+        - 1
+        help: Specify the number of dimensions for each convex polytope constraint
+          of an output-part.
+        nargs: +
+        type: *id001
+    polys_convex_polys_v_n:
+      args:
+      - --polys_convex_polys_v_n
+      kwargs:
+        default:
+        - 1
+        help: Specify the number of vertices for each convex polytope constraint of
+          an output-part.
+        nargs: +
+        type: *id001
+    polys_output_parts:
+      args:
+      - --polys_output_parts
+      kwargs:
+        default:
+        - 1
+        help: Add a one for each output-part constraint.
+        nargs: +
+        type: *id001
+    z_dim:
+      args:
+      - --z_dim
+      kwargs:
+        default: 4
+        help: Specify the number of dimensions for the intermediate representation
+          z.
+        type: *id001
+    zero_init_residual:
+      args:
+      - --zero_init_residual
+      kwargs:
+        action: store_true
+        help: Flag to set batch normalization in identity bypass to zero.
+  opts_dataloader:
+    batch_size:
+      args:
+      - --batch_size
+      kwargs:
+        default: 64
+        help: Specify the number of samples within a batch.
+        type: *id001
+    experiment_ID:
+      args:
+      - --experiment_ID
+      kwargs:
+        default: a
+        help: Specify the ID of the experiment.
+        type: *id002
+    sampler:
+      args:
+      - --sampler
+      kwargs:
+        default: train
+        help: Specify either train, valid or test for data subset of interest.
+        type: *id002
+    sampler_rand:
+      args:
+      - --sampler_rand
+      kwargs:
+        action: store_true
+        default: true
+        help: Random or determininstic sampling process.
+    threads:
+      args:
+      - --threads
+      kwargs:
+        default: 8
+        help: Specify the number of threads used for data loading.
+        type: *id001
+  opts_general_test:
+    comment:
+      args:
+      - --comment
+      kwargs:
+        default: No comment!
+        help: Type some comment for easier reuse :).
+        type: *id002
+    config_final:
+      args:
+      - --config_final
+      kwargs:
+        default: ./config_final.yaml
+        help: Save options setted by command line arguments and/or config file in
+          a yaml file.
+        type: *id002
+    multiple_gpus:
+      args:
+      - --multiple_gpus
+      kwargs:
+        action: store_true
+        default: false
+        help: Flag for using multiple GPUs.
+    opt_def_final:
+      args:
+      - --opt_def_final
+      kwargs:
+        default: ./opt_def_final.yaml
+        help: Save option defintion by command line arguments and/or config file in
+          a yaml file.
+        type: *id002
+    reload_ckpt_file:
+      args:
+      - --reload_ckpt_file
+      kwargs:
+        default: ./checkpoints/latest
+        help: Specify the checkpoint file which should be reloaded.
+        type: *id002
+    results_file:
+      args:
+      - --results_file
+      kwargs:
+        default: ./results.yaml
+        help: Specify the path for saving results on test set.
+        type: *id002
+    version:
+      args:
+      - --version
+      kwargs:
+        default: v1.0
+        help: Specify the version of the source code for reproducability.
+        type: *id002
+  opts_mseloss:
+    opts2loss_fct:
+      args:
+      - --opts2_loss_fct
+      kwargs:
+        default: opts2mseloss
+        help: Name of function to instantiate loss function. Specified function must
+          defined in module optimization.optimizer.
+        type: *id002

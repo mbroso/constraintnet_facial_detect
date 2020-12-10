@@ -1,0 +1,66 @@
+options:
+  opts_celeba:
+    dataset_module: celeba_dataset
+    imgs_dir: /raid/Datasets/CelebA/img_celeba_size_300/
+    lm_ordering_lm_order:
+    - nose_x
+    - lefteye_x
+    - righteye_x
+    - lefteye_y
+    - righteye_y
+    - nose_y
+    lms_file: /raid/Datasets/CelebA/list_landmarks_celeba_size_300.txt
+    normalize_mean:
+    - 0.485
+    - 0.456
+    - 0.406
+    normalize_std:
+    - 0.229
+    - 0.224
+    - 0.225
+    opts2dataset: opts2celeba_dataset
+    opts2y_generator: opts2lm_ordering
+    preprocess:
+    - randcovercrop
+    - randhorflip
+    - totensor
+    - normalize
+    preprocess_lm_keys: []
+    randcovercrop_lms_covered:
+    - nose
+    - lefteye
+    - righteye
+    randcovercrop_no_rand: false
+    randcovercrop_output_size: 224
+    randcovercrop_padding: 0.01
+    randhorflip_p: 0.0
+    rescale_output_size: 300
+    rotate_y:
+    - 0.0
+  opts_dataloader:
+    batch_size: 64
+    experiment_ID: resnet
+    sampler: test
+    sampler_rand: true
+    threads: 10
+  opts_general_test:
+    comment: ResNet50 without constraints
+    config_final: ./experiments/exp_1/resnet/config_test_resnet.yaml
+    multiple_gpus: false
+    opt_def_final: ./experiments/exp_1/resnet/opt_def_test_resnet.yaml
+    reload_ckpt_file: ./experiments/exp_1/resnet/ckpts/resnet_exp_1_ckpt
+    results_file: ./experiments/exp_1/resnet/results.yaml
+    version: v2.4
+  opts_mseloss:
+    opts2loss_fct: opts2mseloss
+  opts_resnet:
+    block: bottleneck
+    block_structure:
+    - 3
+    - 4
+    - 6
+    - 3
+    model_module: resnet
+    opts2model: opts2resnet
+    z_dim: 6
+    zero_init_residual: false

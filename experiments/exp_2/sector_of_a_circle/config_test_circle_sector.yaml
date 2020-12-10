@@ -1,0 +1,81 @@
+options:
+  opts_celeba:
+    dataset_module: celeba_dataset
+    imgs_dir: /raid/Datasets/CelebA/img_celeba_size_300/
+    lm_ordering_lm_order:
+    - nose_x
+    - nose_y
+    lms_file: /raid/Datasets/CelebA/list_landmarks_celeba_size_300.txt
+    normalize_mean:
+    - 0.485
+    - 0.456
+    - 0.406
+    normalize_std:
+    - 0.229
+    - 0.224
+    - 0.225
+    opts2constr_para_generator: opts2lm_circle_sector_rand
+    opts2dataset: opts2celeba_dataset
+    opts2y_generator: opts2lm_ordering
+    preprocess:
+    - randcovercrop
+    - randhorflip
+    - totensor
+    - normalize
+    preprocess_lm_keys: []
+    randcovercrop_lms_covered:
+    - nose
+    - lefteye
+    - righteye
+    lm_circle_sector_lm_class: nose
+    lm_circle_sector_psi_max: 1.0
+    lm_circle_sector_psi_min: 0.4
+    lm_circle_sector_r_max: 100
+    lm_circle_sector_r_min: 50
+    randcovercrop_no_rand: false
+    randcovercrop_output_size: 224
+    randcovercrop_padding: 0.01
+    randhorflip_p: 0.0
+    rescale_output_size: 300
+    rotate_y:
+    - 0.0
+  opts_constraintnet:
+    block: bottleneck
+    block_structure:
+    - 3
+    - 4
+    - 6
+    - 3
+    c_constr_para_repr: 4
+    const_feat_planes_h: 28
+    const_feat_planes_n_channels: 4
+    const_feat_planes_norm_factor: 
+    - 0.01
+    - 0.01
+    - 0.01
+    - 1.0
+    const_feat_planes_repeat_channels: 1
+    const_feat_planes_w: 28
+    constr_module: sector_of_a_circle_constraints
+    model_module: constraintnet
+    opts2constr_guard_layer: opts2sectors_of_a_circle
+    opts2constr_para_repr: opts2const_feat_planes
+    opts2constr_para_trf: opts2identity
+    opts2model: opts2constraintnet
+    z_dim: 2
+  opts_dataloader:
+    batch_size: 64
+    experiment_ID: circle_sector
+    sampler: test
+    sampler_rand: true
+    threads: 10
+  opts_general_test:
+    comment: sector of a circle constraints
+    results_file: ./experiments/exp_2/sector_of_a_circle/results.yaml
+    config_final: ./experiments/exp_2/sector_of_a_circle/config_test_circle_sector.yaml
+    multiple_gpus: false
+    opt_def_final: ./experiments/exp_2/sector_of_a_circle/opt_def_test_circle_sector.yaml
+    reload_ckpt_file: ./experiments/exp_2/sector_of_a_circle/ckpts/sector_ckpt
+    version: v2.4
+  opts_mseloss:
+    opts2loss_fct: opts2mseloss

@@ -1,0 +1,88 @@
+options:
+  opts_celeba:
+    dataset_module: celeba_dataset
+    imgs_dir: /raid/Datasets/CelebA/img_celeba_size_300/
+    lm_ordering_lm_order:
+    - nose_x
+    - nose_y
+    lm_polytope_area: 4000
+    lm_polytope_limits_delta_angle:
+    - -30
+    - 30
+    lm_polytope_limits_delta_r:
+    - -30
+    - 10
+    lm_polytope_lm_class: nose
+    lm_polytope_n: 3
+    lms_file: /raid/Datasets/CelebA/list_landmarks_celeba_size_300.txt
+    normalize_mean:
+    - 0.485
+    - 0.456
+    - 0.406
+    normalize_std:
+    - 0.229
+    - 0.224
+    - 0.225
+    opts2constr_para_generator: opts2lm_polytope_rand
+    opts2dataset: opts2celeba_dataset
+    opts2y_generator: opts2lm_ordering
+    preprocess:
+    - randcovercrop
+    - randhorflip
+    - totensor
+    - normalize
+    preprocess_lm_keys: []
+    randcovercrop_lms_covered:
+    - nose
+    - lefteye
+    - righteye
+    randcovercrop_no_rand: false
+    randcovercrop_output_size: 224
+    randcovercrop_padding: 0.01
+    randhorflip_p: 0.0
+    rescale_output_size: 300
+    rotate_y:
+    - 0.0
+  opts_constraintnet:
+    block: bottleneck
+    block_structure:
+    - 3
+    - 4
+    - 6
+    - 3
+    c_constr_para_repr: 6
+    const_feat_planes_h: 28
+    const_feat_planes_n_channels: 6
+    const_feat_planes_norm_factor: 0.01
+    const_feat_planes_repeat_channels: 1
+    const_feat_planes_w: 28
+    constr_module: triangle_cvxpy
+    model_module: constraintnet
+    opts2constr_guard_layer: opts2triangle_projection
+    opts2constr_para_repr: opts2const_feat_planes
+    opts2constr_para_trf: opts2identity
+    opts2model: opts2constraintnet
+    polys_convex_polys_v_dim:
+    - 2
+    polys_convex_polys_v_n:
+    - 3
+    polys_output_parts:
+    - 1
+    z_dim: 2
+    zero_init_residual: false
+  opts_dataloader:
+    batch_size: 64
+    experiment_ID: triangle_projection
+    sampler: test
+    sampler_rand: true
+    threads: 10
+  opts_general_test:
+    comment: triangle projection constraints
+    config_final: ./experiments/exp_2/triangle_projection/config_test_triangle_projection.yaml
+    multiple_gpus: false
+    opt_def_final: ./experiments/exp_2/triangle_projection/opt_def_test_triangle_projection.yaml
+    reload_ckpt_file: ./experiments/exp_2/triangle_projection/ckpts/triangle_projection_ckpt
+    results_file: ./experiments/exp_2/triangle_projection/results.yaml
+    version: v2.4
+  opts_mseloss:
+    opts2loss_fct: opts2mseloss

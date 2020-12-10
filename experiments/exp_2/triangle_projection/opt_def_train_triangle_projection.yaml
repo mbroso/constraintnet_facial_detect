@@ -1,0 +1,571 @@
+options:
+  opts_adam:
+    amsgrad:
+      args:
+      - --amsgrad
+      kwargs:
+        action: store_true
+        help: Whether to use the AMSgrad variant of adam algorithm.
+    beta_first_moment:
+      args:
+      - --beta_first_moment
+      kwargs:
+        default: 0.9
+        help: 'Beta of exponential moving average of first moment of gradient. This
+          implements gradient momemtum. Default value: 0.9.'
+        type: 'float'
+    beta_second_moment:
+      args:
+      - --beta_second_moment
+      kwargs:
+        default: 0.999
+        help: Beta of exponential moving average of second moment of gradient. This
+          influences the learning rate of the individual parameters depending on their
+          magnitude. Default value 0.9.
+        type: 'float'
+    eps:
+      args:
+      - --eps
+      kwargs:
+        default: 1.0e-08
+        help: Epsilon added to the denominator of adam adaptive learning rate to stabilize
+          it.
+        type: 'float'
+    learning_rate:
+      args:
+      - --learning_rate
+      kwargs:
+        default: 0.001
+        help: The learning rate used for gradient descent.
+        type: 'float'
+    opts2optimizer:
+      args:
+      - --opts2optimizer
+      kwargs:
+        default: opts2adam
+        help: Select the optimizer for training the NN by choosing the function which
+          instantiate the optimizer.
+        type: 'str'
+    weight_decay:
+      args:
+      - --weight_decay
+      kwargs:
+        default: 0.0
+        help: Weight decay (L2 penalty).
+        type: 'float'
+  opts_celeba:
+    dataset_module:
+      args:
+      - --dataset_module
+      kwargs:
+        default: celeba_dataset
+        help: Select dataset module by name of file containing the dataset class without
+          .py extension. File must exist in data directory.
+        type: 'str'
+    lm_polytope_n:
+      args:
+      - --lm_polytope_n
+      kwargs:
+        default: 3
+        help: Specify the number of vertices of the polytope.
+        type: 'int'
+    lm_polytope_lm_class:
+      args:
+      - --lm_polytope_lm_class
+      kwargs:
+        default: nose
+        help: Specify the landmark class which is to be the center of the polytope
+          constraints.
+        type: 'str'
+    lm_polytope_limits_delta_r:
+      args:
+      - --lm_polytope_limits_delta_r
+      kwargs:
+        default:
+        - 5
+        - 15
+        help: Specify the range for sampling radius deviations of the polytope vertices.
+        type: 'int'
+    lm_polytope_limits_delta_angle:
+      args:
+      - --lm_polytope_limits_delta_angle
+      kwargs:
+        default:
+        - 0
+        - 60
+        help: Specify the range for sampling angle deviations of the polytope vertices.
+        nargs: +
+        type: 'int'
+    lm_polytope_area:
+      args:
+      - --lm_polytope_area
+      kwargs:
+        default: 10
+        help: Specify the area of the polytope when the sampled angle and radius deviations are zero.
+        type: 'float'
+    imgs_dir:
+      args:
+      - --imgs_dir
+      kwargs:
+        default: ./
+        help: Specify the path to the images of the dataset.
+        type: 'str'
+    lm_ordering_lm_order:
+      args:
+      - --lm_ordering_lm_order
+      kwargs:
+        default:
+        - nose_x
+        - nose_y
+        help: Specify the order of landmark coordinates for generating the target
+          y.
+        nargs: +
+        type: 'str'
+    lms_file:
+      args:
+      - --lms_file
+      kwargs:
+        default: ./
+        help: Specify the path to the txt file containing the landmarks.
+        type: 'str'
+    normalize_mean:
+      args:
+      - --normalize_mean
+      kwargs:
+        default:
+        - 0.485
+        - 0.456
+        - 0.406
+        help: Specify the mean value for each channel. Normalization is computed according
+          to input[channel] = (input[channel] - mean[channel]) / std[channel]. Default
+          values are for using pretrained torch models.
+        nargs: +
+        type: 'float'
+    normalize_std:
+      args:
+      - --normalize_std
+      kwargs:
+        default:
+        - 0.229
+        - 0.224
+        - 0.225
+        help: Specify the standard deviations for each channel. Normalization is computed
+          according to input[channel] = (input[channel] - mean[channel]) / std[channel].
+          Default values are for using pretrained torch models.
+        nargs: +
+        type: 'float'
+    opts2constr_para_generator:
+      args:
+      - --opts2constr_para_generator
+      kwargs:
+        default: opts2face_bb_rand
+        help: Specify the wrapper function for the functor which creates constraint
+          parameters.
+        type: 'str'
+    opts2dataset:
+      args:
+      - --opts2dataset
+      kwargs:
+        default: opts2celeba_dataset
+        help: Specify dataset wrapper function which should be used to instantiate
+          the dataset class (subclass of torch.utils.data.Dataset). Dataset wrapper
+          function must exist in specified dataset module.
+        type: 'str'
+    opts2y_generator:
+      args:
+      - --opts2y_generator
+      kwargs:
+        default: opts2lm_ordering
+        help: Specify the wrapper function for the functor which generates y by selecting
+          landmark coordinates.
+        type: 'str'
+    preprocess:
+      args:
+      - --preprocess
+      kwargs:
+        default: []
+        help: Specify the list of preprocessing steps.
+        nargs: '*'
+        type: 'str'
+    preprocess_lm_keys:
+      args:
+      - --preprocess_lm_keys
+      kwargs:
+        default: []
+        help: Specify a list of landmark keys that should be in the output sample.
+          When no landmarks are specified all landmarks are considered.
+        nargs: '*'
+        type: 'str'
+    randcovercrop_lms_covered:
+      args:
+      - --randcovercrop_lms_covered
+      kwargs:
+        default:
+        - nose
+        help: Specify a list of landmark keys that should be covered by random cover
+          crop.
+        nargs: +
+        type: 'str'
+    randcovercrop_no_rand:
+      args:
+      - --randcovercrop_no_rand
+      kwargs:
+        action: store_true
+        help: Flag for no random sampling of crop position.
+    randcovercrop_output_size:
+      args:
+      - --randcovercrop_output_size
+      kwargs:
+        default:
+        - 100
+        help: Specify image size after random cover crop.
+        nargs: +
+        type: 'int'
+    randcovercrop_padding:
+      args:
+      - --randcovercrop_padding
+      kwargs:
+        default:
+        - 0.0
+        help: Specify the padding as fraction w.r.t. image edge. If one number is
+          specified same padding ratio is used for x and y dimension. With two numbers
+          padding rates for both dimensions can be specified separately. Numbers must
+          be between 0 and 1.
+        nargs: +
+        type: 'float'
+    randhorflip_p:
+      args:
+      - --randhorflip_p
+      kwargs:
+        default: 0.0
+        help: Specify the probability for horizontal flip.
+        type: 'float'
+    rescale_output_size:
+      args:
+      - --rescale_output_size
+      kwargs:
+        default:
+        - 100
+        help: Specify image size after rescaling.
+        nargs: +
+        type: 'int'
+    rotate_y:
+      args:
+      - --rotate_y
+      kwargs:
+        default:
+        - 0.0
+        help: Specify a list with 4 entries [r_11, r_12, r_21, r_22] which represents
+          a 2x2 matrix. When it is specified the roation matrix is applied on y after
+          y_generator.
+        nargs: +
+        type: 'float'
+  opts_constraintnet:
+    block:
+      args:
+      - --block
+      kwargs:
+        default: bottleneck
+        help: Specifiy the block type. Either bottleneck or basicblock.
+        type: 'str'
+    block_structure:
+      args:
+      - --block_structure
+      kwargs:
+        default:
+        - 3
+        - 4
+        - 6
+        - 3
+        help: Specify 4 integers to select the number of layers for each of the 4
+          blocks of resnet.
+        nargs: 4
+        type: 'int'
+    c_constr_para_repr:
+      args:
+      - --c_constr_para_repr
+      kwargs:
+        default: 4
+        help: Specify the number of channels for the constraint parameter representation.
+        type: 'int'
+    const_feat_planes_h:
+      args:
+      - --const_feat_planes_h
+      kwargs:
+        default: '28'
+        help: Specify the height of the generated constraint parameter representation
+          tensor.
+        type: 'int'
+    const_feat_planes_n_channels:
+      args:
+      - --const_feat_planes_n_channels
+      kwargs:
+        default: '4'
+        help: Specify the number of channels of the generated constraint parameter
+          representation tensor.
+        type: 'int'
+    const_feat_planes_norm_factor:
+      args:
+      - --const_feat_planes_norm_factor
+      kwargs:
+        default: 0.01
+        help: Specify one or several rescaling factors for the channels of the constraint
+          parameter representation tensor.
+        nargs: +
+        type: 'float'
+    const_feat_planes_repeat_channels:
+      args:
+      - --const_feat_planes_repeat_channels
+      kwargs:
+        default: '1'
+        help: Specify the number of channels in the generated constraint parameter
+          representation tensor for one constraint parameter.
+        type: 'int'
+    const_feat_planes_w:
+      args:
+      - --const_feat_planes_w
+      kwargs:
+        default: '28'
+        help: Specify the width of the generated constraint parameter representation
+          tensor.
+        type: 'int'
+    constr_module:
+      args:
+      - --constr_module
+      kwargs:
+        default: polytope_constraints
+        help: Specify the module with functionality for modeling constraints. (e.g.
+          constraintnet)
+        type: 'str'
+    model_module:
+      args:
+      - --model_module
+      kwargs:
+        default: constraintnet
+        help: Select module with neural network model. (e.g. constraintnet or resnet).
+        type: 'str'
+    opts2constr_guard_layer:
+      args:
+      - --constr_guard_layer
+      kwargs:
+        default: convex_polytopes
+        help: This PyTorch nn.Module implements the constraint guard layer.
+        type: 'str'
+    opts2constr_para_repr:
+      args:
+      - --opts2constr_para_repr
+      kwargs:
+        default: opts2const_feat_planes
+        help: Specify a transformation functor which computes the constraint parameter
+          representation tensor from the constraint parameter.
+        type: 'str'
+    opts2constr_para_trf:
+      args:
+      - --opts2constr_para_trf
+      kwargs:
+        default: opts2v_polys_bb
+        help: Specify a transformation functor which transforms the constraint parameter
+          in an appropriate format for the constraint guard layer.
+        type: 'str'
+    opts2model:
+      args:
+      - --opts2model
+      kwargs:
+        default: opts2constraintnet
+        help: Specified function instantiates model (e.g. opts2constraintnet).
+        type: 'str'
+    polys_convex_polys_v_dim:
+      args:
+      - --polys_convex_polys_v_dim
+      kwargs:
+        default:
+        - 1
+        help: Specify the number of dimensions for each convex polytope constraint
+          of an output-part.
+        nargs: +
+        type: 'int'
+    polys_convex_polys_v_n:
+      args:
+      - --polys_convex_polys_v_n
+      kwargs:
+        default:
+        - 1
+        help: Specify the number of vertices for each convex polytope constraint of
+          an output-part.
+        nargs: +
+        type: 'int'
+    polys_output_parts:
+      args:
+      - --polys_output_parts
+      kwargs:
+        default:
+        - 1
+        help: Add a one for each output-part constraint.
+        nargs: +
+        type: 'int'
+    z_dim:
+      args:
+      - --z_dim
+      kwargs:
+        default: 4
+        help: Specify the number of dimensions for the intermediate representation
+          z.
+        type: 'int'
+    zero_init_residual:
+      args:
+      - --zero_init_residual
+      kwargs:
+        action: store_true
+        help: Flag to set batch normalization in identity bypass to zero.
+  opts_dataloader:
+    batch_size:
+      args:
+      - --batch_size
+      kwargs:
+        default: 64
+        help: Specify the number of samples within a batch.
+        type: 'int'
+    experiment_ID:
+      args:
+      - --experiment_ID
+      kwargs:
+        default: 'a'
+        help: Specify the ID of the experiment.
+        type: 'str'
+    sampler:
+      args:
+      - --sampler
+      kwargs:
+        default: train
+        help: Specify either train, valid or test for data subset of interest.
+        type: 'str'
+    sampler_rand:
+      args:
+      - --sampler_rand
+      kwargs:
+        action: store_true
+        default: true
+        help: Random or determininstic sampling process.
+    threads:
+      args:
+      - --threads
+      kwargs:
+        default: 8
+        help: Specify the number of threads used for data loading.
+        type: 'int'
+  opts_general_train:
+    ckpt_dir:
+      args:
+      - --ckpt_dir
+      kwargs:
+        default: ./checkpoints/
+        help: Specify the directory for saving neural network weights as checkpoints.
+        type: 'str'
+    ckpt_freq:
+      args:
+      - --ckpt_freq
+      kwargs:
+        default: '1000'
+        help: Specify the frequency for saving checkpoints in number of minibatches.
+        type: 'int'
+    comment:
+      args:
+      - --comment
+      kwargs:
+        default: No comment!
+        help: Type some comment for easier reuse :).
+        type: 'str'
+    config_final:
+      args:
+      - --config_final
+      kwargs:
+        default: ./config_final.yaml
+        help: Save options setted by command line arguments and/or config file in
+          a yaml file.
+        type: 'str'
+    log_file:
+      args:
+      - --log_file
+      kwargs:
+        default: ./logs.yaml
+        help: Specify the path and name to the file for logging informations. Should
+          end with .yaml .
+        type: 'str'
+    log_freq:
+      args:
+      - --log_freq
+      kwargs:
+        default: 1
+        help: Specify the frequency for saving logs with training loss in number of
+          mini batches. The logged loss is averaged over log_freq batches.
+        type: 'int'
+    log_valid_freq:
+      args:
+      - --log_valid_freq
+      kwargs:
+        default: 1000
+        help: Specify the frequency for saving logs with average loss on validation
+          set in number of mini batches. Should not be to frequently since it slows
+          training down.
+        type: 'int'
+    multiple_gpus:
+      args:
+      - --multiple_gpus
+      kwargs:
+        action: store_true
+        default: false
+        help: Flag for using multiple GPUs.
+    n_batches_valid:
+      args:
+      - --n_batches_valid
+      kwargs:
+        default: 100000
+        help: Specify the number of batches of the validation set for measuring the
+          average loss and saving as log_valid.
+        type: 'int'
+    n_early_stop:
+      args:
+      - --n_early_stop
+      kwargs:
+        default: 5
+        help: Specify number of epochs the training should continue although the validation
+          loss of an epoch did not decrease.
+        type: 'int'
+    n_epochs:
+      args:
+      - --n_epochs
+      kwargs:
+        default: 100
+        help: Specify the number of epochs for training.
+        type: 'int'
+    opt_def_final:
+      args:
+      - --opt_def_final
+      kwargs:
+        default: ./opt_def_final.yaml
+        help: Save option defintion by command line arguments and/or config file in
+          a yaml file.
+        type: 'str'
+    start_epoch:
+      args:
+      - --start_epoch
+      kwargs:
+        default: 0
+        help: Start epoch index.
+        type: 'int'
+    version:
+      args:
+      - --version
+      kwargs:
+        default: v1.0
+        help: Specify the version of the source code for reproducability.
+        type: 'str'
+  opts_mseloss:
+    opts2loss_fct:
+      args:
+      - --opts2_loss_fct
+      kwargs:
+        default: opts2mseloss
+        help: Name of function to instantiate loss function. Specified function must
+          defined in module optimization.optimizer.
+        type: 'str'

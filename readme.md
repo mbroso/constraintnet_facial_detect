@@ -1,4 +1,4 @@
-# Facial landmark detection with ConstraintNet
+# ConstraintNet: Output constraints on facial landmark detection
 
 This repository implements the facial landmark detection tasks in the paper "Sample-Specific Output Constraints for Neural Networks". Three neural networks are implemented: ResNet50 (without constraints) [2], ConstraintNet (with constraints), and a projection-based approach (with constraints) [3,4,5]. The backbone of ConstraintNet and of the projection-based approach is ResNet50 [2]. For a fair comparison, we constucted the projection-based approach analogously to ConstraintNet and replaced the constraint guard layer with a layer which performs a projection on the constrained output space. For the projection layer, we use the packages cvxpy and cvxpylayers [3,4,5]. To get a quick overview about the experiments and output constraints, we recommend to play around with the interactive streamlit app (see section Streamlit app). The app allows to load the config file of the experiment, to load an image, to adjust the preprocessing steps, and to set the output constraints. For the configured settings, a live detection is performed. 
 
@@ -19,7 +19,7 @@ conda activate facial_lm_pred
 
 ## Configuration files and option definition files
 
-For reproducability
+For reproducibility
 of the experiments, we provide option defintion files and configuration files. 
 The option definition file defines options and the configuration file sets the 
 options. The option defintion and configuration files for the experiments are located in subdirectories of the *./experiments*

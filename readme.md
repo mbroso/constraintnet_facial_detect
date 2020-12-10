@@ -1,4 +1,4 @@
-# ConstraintNet: Output constraints on a facial landmark detection
+# ConstraintNet: Output constraints for facial landmark detection
 
 [![License](https://img.shields.io/pypi/l/Django.svg)](https://github.com/mbroso/constraintnet_facial_detect/blob/master/LICENSE)
 

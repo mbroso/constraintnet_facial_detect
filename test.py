@@ -8,7 +8,6 @@ from options.opt_manager import OptManager
 import data
 from data.celeba_dataset import CelebaDataset
 import models
-from models.cvxpy_projections import *
 import optimization
 import utility.results as results
 
@@ -56,14 +55,6 @@ if __name__ == '__main__':
     #load model from opts
     model = models.my_model(opts)
     model.to(device) 
-
-    # if cvxpy projection is specified instantiate functor
-    cvxpy_projection = None
-    cvxpy_projection_2 = None
-    if hasattr(opts, 'cvxpy_projection'): 
-        cvxpy_projection = opts2cvxpy_projection(opts)
-        cvxpy_projection_2 = models.cvxpy_projections.BbRelProjection()
-
 
     if opts.multiple_gpus:
         model = nn.DataParallel(model)

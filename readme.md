@@ -116,7 +116,7 @@ The table shows the mean squared error (MSE) for facial landmark detection with
 ConstraintNet, the projection-based approach, and ResNet50 on test set of CelebA dataset. Results are shown
 for constraints in form of bounding boxes (bb), additional constraints to
 enforce a relative arrangement of the landmarks (bb+rel), triangle (triangle
-symbol) and sector of a circle constraints (calligraphic O). The average value and the standard deviation are determined over 30
+symbol) and sector of a circle constraints (calligraphic O). The average value and the standard deviation determined over 30
 test runs are shown. 
 
 ![](results_facial_landmark_prediction.png)

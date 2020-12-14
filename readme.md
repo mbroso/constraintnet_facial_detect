@@ -1,8 +1,8 @@
-# ConstraintNet: Output constraints for facial landmark detection
+# ConstraintNet: Output Constraints for Facial Landmark Detection
 
 [![License](https://img.shields.io/pypi/l/Django.svg)](https://github.com/mbroso/constraintnet_facial_detect/blob/master/LICENSE)
 
-This repository contains the code for the facial landmark detection tasks in the paper "Sample-Specific Output Constraints for Neural Networks". The technical appendix is also provided by the file *supplementary.pdf*. Three neural networks are implemented: ResNet50 (without constraints) [2], ConstraintNet (with constraints), and a projection-based approach (with constraints) [3,4,5]. The backbone of ConstraintNet and of the projection-based approach is ResNet50 [2]. For a fair comparison, we constucted the projection-based approach analogously to ConstraintNet and replaced the constraint guard layer with a layer which performs a projection on the constrained output space. For the projection layer, we use the packages cvxpy and cvxpylayers [3,4,5]. To get a quick overview about the experiments and output constraints, we recommend to play around with the interactive streamlit app (see section Streamlit app). The app allows to load the config file of the experiment, to load an image, to adjust the preprocessing steps, and to set the output constraints. For the configured settings, a live detection is performed. 
+This repository contains the code for the facial landmark detection tasks in the paper "Sample-Specific Output Constraints for Neural Networks". The technical appendix is also provided by the file *supplementary.pdf*. Three neural networks are implemented: ResNet50 (without constraints) [2], ConstraintNet (with constraints), and a projection-based approach (with constraints) [3,4,5]. The backbone of ConstraintNet and of the projection-based approach is ResNet50 [2]. For a fair comparison, we constructed the projection-based approach analogously to ConstraintNet and replaced the constraint guard layer with a layer that performs a projection on the constrained output space. For the projection layer, we use the packages cvxpy and cvxpylayers [3,4,5]. To get a quick overview of the experiments and output constraints, we recommend to play around with the interactive streamlit app (see section Streamlit app). The app allows to load the config file of the experiment, to load an image, to adjust the preprocessing steps, and to set the output constraints. For the configured settings, a live detection is performed. 
 
 
 ## Requirements
@@ -19,15 +19,15 @@ conda activate facial_lm_pred
 ```
 
 
-## Configuration files and option definition files
+## Configuration Files and Option Definition Files
 
 For reproducibility
-of the experiments, we provide option defintion files and configuration files. 
+of the experiments, we provide option definition files and configuration files. 
 The option definition file defines options and the configuration file sets the 
-options. The option defintion and configuration files for the experiments are located in subdirectories of the *./experiments*
+options. The option definition and configuration files for the experiments are located in subdirectories of the *./experiments*
 directory. The *./experiments* directory has subdirectories *exp_1* and *exp_2* for 
 the corresponding experiments in the paper. The first experiment (*exp_1*) considers the
-landmark detection of the nose, the lefteye and the righteye with ResNet50 
+landmark detection of the nose, the left eye, and the right eye with ResNet50 
 (subdirectory *exp_1/resnet*), with the projection-based approach (subdirectory *exp_1/bb_projection* for bounding box 
 constraints and subdirectory *exp_1/bb_rel_projection* for bounding box constraints with additional
 relations between the landmarks), and with ConstraintNet (subdirectory *exp_1/bb* for bounding box 
@@ -37,7 +37,7 @@ relations between the landmarks). The second experiment (*exp_2*) is a nose land
 a circle* for sector of a circle constraints). For each experiment, the option definition and the configuration file are
 provided for training and test, separately.
 
-## Streamlit app
+## Streamlit App
 
 ![](screenshot_app.png)
 
@@ -53,14 +53,14 @@ from the directory *pics/*.
 
 
 
-## CelebA dataset
+## CelebA Dataset
 
 We perform all experiments on CelebA [1] dataset. For saving computational
-ressources, we rescaled the images and adapted the landmark annotations
+resources, we rescaled the images and adapted the landmark annotations
 (*list_landmarks_celeba.txt*) appropriately before applying training and test. We rescaled
 the shorter edge of each image to a length of 300px with bilinear interpolation and
 saved
-the images in an seperate folder. Furthermore, we adopted the *list_landmark_celeba.txt* file accordingly. For running the experiments, set the option `img_dir` to the path of the directory with the rescaled images and 
+the images in a separate folder. Furthermore, we adopted the *list_landmark_celeba.txt* file accordingly. For running the experiments, set the option `img_dir` to the path of the directory with the rescaled images and 
 `lms_file` to the path of the file with adopted landmark annotations. The options can be set in the configuration file or via command line parameters.
 
 Via command line parameters:
@@ -75,10 +75,10 @@ imgs_dir: <path to directory with images>
 lms_file: <path to file with landmark annotations>
 ```
 
-## Pre-trained models
+## Pre-trained Models
 We provide pre-trained models for all experiments.
 The pre-trained models are located in the *ckpts* subdirectory of the
-corresponding experiment folder. The weights can be loaded for evaluation via
+corresponding experiment folder. The weights can be loaded for evaluation by
 specifying the path to the weight file in the `--reload_ckpt_file` option (see
 evaluation). E.g. the weight file for ConstraintNet bounding box constraints can be located via
 `--reload_ckpt_file ./experiments/exp_1/bb/ckpts/bb_ckpt`.

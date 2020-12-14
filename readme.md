@@ -121,18 +121,19 @@ test runs are shown.
 
 ![](results_facial_landmark_prediction.png)
 
-[1] Ziwei Liu, Ping Luo, Xiaogang Wang, Xiaoou Tang. Deep learning face
-attributes in the wild. In Proceedings of the IEEE International Conference on
-Computer Vision. 2015
+[1] Ziwei Liu, Ping Luo, Xiaogang Wang, Xiaoou Tang. Deep Learning Face
+Attributes in the Wild. In Proceedings of the IEEE International Conference on
+Computer Vision. 2015. arxiv: https://arxiv.org/abs/1411.7766 
 
 [2] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun. Deep Residual Learning
-for Image Recognition. Proceedings of the IEEE Computer Society Conference on Computer Vision and Pattern Recognition. arxiv: https://arxiv.org/pdf/1512.03385.pdf
+for Image Recognition. 2016. Proceedings of the IEEE Computer Society Conference on Computer Vision and Pattern Recognition. arxiv: https://arxiv.org/pdf/1512.03385.pdf
 
-[3] Steven Diamond and Stephen Boyd. CVXPY: A Python-embedded modeling language for convex optimization. Journal of Machine Learning Research. 2016
+[3] Steven Diamond and Stephen Boyd. CVXPY: A Python-Embedded Modeling Language for Convex Optimization. Journal of Machine Learning Research. 2016. arxiv: https://arxiv.org/abs/1603.00943
 
-[4] Akshay Agrawal, Robin Verschueren, Steven Diamond, Steven Boyd. A rewriting
-system for convex optimization problems. Journal of Control and Decision. 2018
+[4] Akshay Agrawal, Robin Verschueren, Steven Diamond, Steven Boyd. A Rewriting
+System for Convex Optimization Problems. Journal of Control and Decision. 2018.
+arxiv: https://arxiv.org/abs/1709.04494
 
 [5] Agrawal, A. and Amos, B. and Barratt, S. and Boyd, S. and Diamond, S. and
 Kolter, Z.. Differentiable Convex Optimization Layers. Advances in Neural
-Information Processing Systems. 2019
+Information Processing Systems. 2019. arxiv: https://arxiv.org/abs/1910.12430

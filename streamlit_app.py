@@ -516,8 +516,8 @@ with st.beta_expander(pred_name, expanded=True):
             img_exp_2_triangle = polygon_on_img(img_for_plot, polygon_xy = polygon_triangle,
                     linewidth=5, scatter_pts = scatter_pts)
             st.image(img_exp_2_triangle, caption="Prediction within triangle constraint", width=600)
-            io.imsave(Path('./pics/exp_2_triangle.jpg'),
-                    np.array(img_exp_2_triangle))
+            #io.imsave(Path('./pics/exp_2_triangle.jpg'),
+            #        np.array(img_exp_2_triangle))
         else:
             img_exp_2_resnet = polygon_on_img(img_for_plot,
                     linewidth=5, scatter_pts = scatter_pts)
